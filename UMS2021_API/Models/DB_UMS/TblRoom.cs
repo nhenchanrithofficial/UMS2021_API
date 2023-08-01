@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
+
+namespace UMS2021_API.Models.DB_UMS
+{
+    public partial class TblRoom
+    {
+        public int RoomId { get; set; }
+        public string Room { get; set; }
+        public int? BuildingId { get; set; }
+        public int? FixedSeats { get; set; }
+        public int? ReservedSeats { get; set; }
+        public string Note { get; set; }
+    }
+}

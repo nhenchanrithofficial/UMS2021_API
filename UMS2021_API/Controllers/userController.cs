@@ -34,12 +34,12 @@ namespace UMS2021_API.Controllers
         // ========================= ========================= //
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> SignIn(TblstudentDetail userLogin)
+        public async Task<IActionResult> SignIn(int StudentId, string Pwd) // TblstudentDetail userLogin
         {
-            if (userLogin != null && userLogin.StudentId != 0 && userLogin.Pwd != null)
+            if (StudentId != 0 && Pwd != null)
             {
-                userLogin.Pwd = Encrypt(userLogin.Pwd);
-                var user = await GetUser(userLogin.StudentId, userLogin.Pwd);
+                Pwd = Encrypt(Pwd);
+                var user = await GetUser(StudentId, Pwd);
 
                 if (user != null)
                 {
@@ -76,14 +76,14 @@ namespace UMS2021_API.Controllers
 
         [HttpPost]
         [Route("register")]
-        public IActionResult SignUp([FromBody] TblstudentDetail userRegister)
+        public IActionResult SignUp(int StudentId, string Pwd) // [FromBody] TblstudentDetail userRegister
         {
-            userRegister.Pwd = Encrypt(userRegister.Pwd);
-            var studentId = _UMScontext.TblstudentDetail.FirstOrDefault(u => u.StudentId == userRegister.StudentId);
+            Pwd = Encrypt(Pwd);
+            var studentId = _UMScontext.TblstudentDetail.FirstOrDefault(u => u.StudentId == StudentId);
 
             if (studentId != null)
             {
-                studentId.Pwd = userRegister.Pwd;
+                studentId.Pwd = Pwd;
 
                 _UMScontext.TblstudentDetail.Update(studentId);
                 _UMScontext.SaveChanges();
